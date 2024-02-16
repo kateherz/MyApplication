@@ -25,10 +25,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        //all this does is make the dialogue box for a given button (in this case this is the email icon on the bottom right)
         binding.appBarMain.fab?.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
 
         val navHostFragment =
                 (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             it.setupWithNavController(navController)
         }
 
+        //this block seems to switch between the different activities (transform, reflow, slideshow) on click
         binding.appBarMain.contentMain.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(setOf(
                     R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow))
