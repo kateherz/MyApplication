@@ -8,7 +8,7 @@ class TransformViewModel : ViewModel() {
 
     private val _texts = MutableLiveData<List<String>>().apply {
         value = (1..8).mapIndexed { _, i ->
-            "h"
+            ""
         }
     }
 
