@@ -3,6 +3,7 @@ Wrap the DrawerLayout with FrameLayout to use the same View type for the same vi
 across the layout configurations
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,11 +25,15 @@ across the layout configurations
         android:layout_height="match_parent" /> -->
 
     <!--This is a text box-->
-    <TextView
+    <EditText
+        android:id="@+id/display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:text="@string/question_text" />
+        android:inputType="textPersonName|textCapWords"
+        android:text="@string/question_text"
+        android:autofillHints="This is your display name"
+        tools:ignore="LabelFor" />
 
         <!--This is the next button-->
     <Button
