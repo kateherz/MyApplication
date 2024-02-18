@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentTransformBinding
@@ -31,9 +32,9 @@ class TransformFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         val transformViewModel = ViewModelProvider(this).get(TransformViewModel::class.java)
         _binding = FragmentTransformBinding.inflate(inflater, container, false)
@@ -41,10 +42,14 @@ class TransformFragment : Fragment() {
 
         val recyclerView = binding.recyclerviewTransform
         val adapter = TransformAdapter()
+
         recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
+
         transformViewModel.texts.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
         return root
     }
 
@@ -62,6 +67,7 @@ class TransformFragment : Fragment() {
                 oldItem == newItem
     }) {
 
+        //this is where we're gonna input the icons to select from
         private val drawables = listOf(
                 R.drawable.avatar_1,
                 R.drawable.avatar_2,
@@ -71,14 +77,6 @@ class TransformFragment : Fragment() {
                 R.drawable.avatar_6,
                 R.drawable.avatar_7,
                 R.drawable.avatar_8,
-                R.drawable.avatar_9,
-                R.drawable.avatar_10,
-                R.drawable.avatar_11,
-                R.drawable.avatar_12,
-                R.drawable.avatar_13,
-                R.drawable.avatar_14,
-                R.drawable.avatar_15,
-                R.drawable.avatar_16,
         )
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransformViewHolder {
@@ -87,9 +85,10 @@ class TransformFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: TransformViewHolder, position: Int) {
-            holder.textView.text = getItem(position)
+            val adjustedPosition = position % 8
+            holder.textView.text = getItem(adjustedPosition)
             holder.imageView.setImageDrawable(
-                    ResourcesCompat.getDrawable(holder.imageView.resources, drawables[position], null))
+                ResourcesCompat.getDrawable(holder.imageView.resources, drawables[adjustedPosition], null))
         }
     }
 
