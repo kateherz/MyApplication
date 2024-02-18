@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -13,20 +14,33 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityMainBinding
+import android.widget.Button
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var nextButton: Button
+    //function onCreate called when an instance of the activity subclass is created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.appBarMain.toolbar)
+        setSupportActionBar(binding.appBarMain?.toolbar)
 
+        nextButton = findViewById(R.id.next_button)
+
+        nextButton.setOnClickListener {view: View ->
+            //do something in response to the click here
+            Toast.makeText(
+                this,
+                R.string.input_name_toast,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         //all this does is make the dialogue box for a given button (in this case this is the email icon on the bottom right)
-        binding.appBarMain.fab?.setOnClickListener { view ->
+        binding.appBarMain?.fab?.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -46,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //this block seems to switch between the different activities (transform, reflow, slideshow) on click
-        binding.appBarMain.contentMain.bottomNavView?.let {
+        binding.appBarMain?.contentMain?.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(setOf(
                     R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow))
             setupActionBarWithNavController(navController, appBarConfiguration)
