@@ -22,4 +22,6 @@
     <string name="image_view_item_transform_content_description">Represents an image view in the
         item
     </string>
+    <string name="question_text">Enter your name here!</string>
+    <string name="next_button">Next</string>
 </resources>
